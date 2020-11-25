@@ -26,8 +26,8 @@
   }
 
   .group {
-    
-    border-radius: 4px;
+   
+ 
     margin: 20px;
   }
 
@@ -79,7 +79,7 @@
   button {
     float: left;
     display: block;
-    background: #666ee8;
+    background: #2196f3;
     color: white;
     box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.1),
       0 3px 6px 0 rgba(0, 0, 0, 0.08);
@@ -90,7 +90,8 @@
     font-size: 15px;
     font-weight: 400;
     width: 100%;
-    left: 0;
+    left: 0px;
+    padding: 10px;
     line-height: 38px;
     outline: none;
   }
@@ -110,8 +111,6 @@
     min-height: 24px;
     text-align: center;
   }
- 
-
 
   .success,
   .error {
@@ -141,35 +140,96 @@
   }
   .exp-cvc{
     display: flex;
-    margin-bottom: 10px;
   }
-  .cvv{
-    flex:1;
-    border-bottom:2px solid #2196f3;
+  .exp {
+    flex: 1;
+    border-bottom: 2px solid #2196f3;
+  }
+  .cvv {
+    flex: 1;
+    border-bottom: 2px solid #2196f3;
     margin-left: 10px;
   }
-
-  .exp{
-    flex:1;
-    border-bottom :2px solid #2196f3;
-    
-  }
-  .card-number{
-    border-bottom:2px solid #2196f3;
+  .card-number {
+    border-bottom: 2px solid #2196f3;
     margin-bottom: 10px;
   }
 </style>
 <body>
+  <script>
+    var json = {
+      en: {
+        submit: "Pay Now",
+        card_number: "Card Number",
+        expiry_date: "Expiry Date",
+        incorrect_number: "The card number is incorrect.",
+        incomplete_number: "The card number is incomplete",
+        invalid_expiry_year_past: "The expiry date is of past",
+        incomplete_cvc: "The Card Security Code Is incomplete",
+        incomplete_expiry: "The Card Expiry date is incomplete",
+        invalid_number: "The card number is not a valid credit card number.",
+        invalid_expiry_month: "Your card's expiration month is invalid",
+        invalid_expiry_year: "Your card's expiration year is invalid",
+        invalid_cvc: "The card's security code is invalid.",
+        expired_card: "The card has expired.",
+        incorrect_cvc: "Your card's security code is invalid.",
+        incorrect_zip: "The card's zip code failed validation.",
+        card_declined: "The card was declined.",
+        missing: "There is no card on a customer that is being charged.",
+        processing_error: "An error occurred while processing the card.",
+        rate_limit:
+          "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error.",
+      },
+      ja: {
+        submit: "注文を確定する",
+        card_number: "カード番号",
+        expiry_date: "有効期限",
+        incorrect_number: "The card number is incorrect.",
+        invalid_expiry_year_past: "The expiry date is of past",
+        incomplete_number: "The card number input is not complete",
+        incomplete_cvc: "The Card Security Code Is incomplete",
+        incomplete_expiry: "The Card Expiry date is incomplete",
+        invalid_number: "The card number is not a valid credit card number.",
+        invalid_expiry_month: "有効期限の「月」に誤りがございます。",
+        invalid_expiry_year: "有効期限の「年」に誤りがございます。",
+        invalid_cvc: "CVV（セキュリティーコード）が誤っております。",
+        expired_card: "The card has expired.",
+        incorrect_cvc: "The card's security code is incorrect.",
+        incorrect_zip: "The card's zip code failed validation.",
+        card_declined: "The card was declined.",
+        missing: "There is no card on a customer that is being charged.",
+        processing_error: "An error occurred while processing the card.",
+        rate_limit:
+          "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error.",
+      },
+    };
+    function GetURLParameter(sParam) {
+      var sPageURL = window.location.search.substring(1);
+      var sURLVariables = sPageURL.split("&");
+      for (var i = 0; i < sURLVariables.length; i++) {
+        var sParameterName = sURLVariables[i].split("=");
+        if (sParameterName[0] == sParam) {
+          return sParameterName[1];
+        }
+      }
+      return "";
+    }
+    var lang = GetURLParameter("lang");
+    if (lang == "") {
+      lang = "ja";
+    }
+  </script>
+
   <form action="//httpbin.org/post" method="POST">
     <input type="hidden" name="token" />
     <div class="group">
       <div class="card-number">
-        <span>Card number</span>
+        <span id="card_number"></span>
         <div id="card-number-element" class="field"></div>
       </div>
       <div class="exp-cvc">
         <div class="exp">
-          <span>Expiry date</span>
+          <span id="expiryday"></span>
           <div id="card-expiry-element" class="field"></div>
         </div>
         <div class="cvv">
@@ -184,62 +244,58 @@
         <span class="token"></span>
       </div>
     </div>
-    <button type="submit">Submit</button>
+    <button id="payment" type="submit"></button>
 
     <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
   </form>
 </body>
 <script>
-  var stripe = Stripe(
-    "pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2"
-  );
-  var elements = stripe.elements();
-  function GetURLParameter(sParam) {
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split("&");
-    for (var i = 0; i < sURLVariables.length; i++) {
-      var sParameterName = sURLVariables[i].split("=");
-      if (sParameterName[0] == sParam) {
-        return sParameterName[1];
-      }
-    }
-  }
+    var stripe = Stripe(
+      "pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2"
+    );
+    var elements = stripe.elements();
+    
+
+
 
   var style = {
     base: {
-      iconColor: "#666EE8",
-      color: "#31325F",
-      lineHeight: "40px",
+      iconColor: '#666EE8',
+      color: '#31325F',
+      lineHeight: '40px',
       fontWeight: 300,
-      fontFamily: "Helvetica Neue",
-      fontSize: "15px",
-
-      "::placeholder": {
-        color: "#898989",
+      fontFamily: 'Helvetica Neue',
+      fontSize: '15px',
+      borderBottom: '2px solid blue',
+      '::placeholder': {
+        color: '#898989',
       },
     },
   };
-  var email = GetURLParameter("email");
-  var cardNumberElement = elements.create("cardNumber", {
-    style: style,
+  var email = GetURLParameter('email');
+  document.getElementById("card_number").innerHTML = json[lang]['card_number'];
+  document.getElementById("expiryday").innerHTML = json[lang]['expiry_date'];
+  document.getElementById("payment").innerHTML = json[lang]['submit'];
+  var cardNumberElement = elements.create('cardNumber', {
+    style: style
   });
-  cardNumberElement.mount("#card-number-element");
+  cardNumberElement.mount('#card-number-element');
 
-  var cardExpiryElement = elements.create("cardExpiry", {
-    style: style,
+  var cardExpiryElement = elements.create('cardExpiry', {
+    style: style
   });
-  cardExpiryElement.mount("#card-expiry-element");
+  cardExpiryElement.mount('#card-expiry-element');
 
-  var cardCvcElement = elements.create("cardCvc", {
-    style: style,
+  var cardCvcElement = elements.create('cardCvc', {
+    style: style
   });
-  cardCvcElement.mount("#card-cvc-element");
+  cardCvcElement.mount('#card-cvc-element');
 
   function setOutcome(result) {
-    var successElement = document.querySelector(".success");
-    var errorElement = document.querySelector(".error");
-    successElement.classList.remove("visible");
-    errorElement.classList.remove("visible");
+    var successElement = document.querySelector('.success');
+    var errorElement = document.querySelector('.error');
+    successElement.classList.remove('visible');
+    errorElement.classList.remove('visible');
 
     if (result.token) {
       // In this example, we're simply displaying the token
@@ -254,28 +310,41 @@
       //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
       //form.submit();
     } else if (result.error) {
-      errorElement.textContent = result.error.message;
-      errorElement.classList.add("visible");
+      console.log(result.error.code)
+      errorElement.textContent = json[lang][result.error.code];
+      errorElement.classList.add('visible');
     }
   }
 
-  cardNumberElement.on("change", function (event) {
-    setOutcome(event);
-  });
-
-  cardExpiryElement.on("change", function (event) {
-    setOutcome(event);
-  });
-
-  cardCvcElement.on("change", function (event) {
-    setOutcome(event);
-  });
-
-  document.querySelector("form").addEventListener("submit", function (e) {
+  document.querySelector('form').addEventListener('submit', function(e) {
     e.preventDefault();
+    document.getElementById("payment").disabled = true;
     var options = {
       email: email,
+
     };
-    stripe.createToken(cardNumberElement, options).then(setOutcome);
   });
+   
+
+  
+
+    cardNumberElement.on("change", function (event) {
+      setOutcome(event);
+    });
+
+    cardExpiryElement.on("change", function (event) {
+      setOutcome(event);
+    });
+
+    cardCvcElement.on("change", function (event) {
+      setOutcome(event);
+    });
+
+    document.querySelector("form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var options = {
+        email: email,
+      };
+      stripe.createToken(cardNumberElement, options).then(setOutcome);
+    });
 </script>
