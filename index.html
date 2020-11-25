@@ -208,11 +208,7 @@ function setOutcome(result) {
 
   if (result.token) {
     // In this example, we're simply displaying the token
-    if(Print !== 'undefined'){
-        Print.postMessage(result)
-    }else{
-      console.debug('not running inside flutter webview');
-    }
+    window.postMessage(result);
     console.log(result);
     successElement.querySelector('.token').innerHTML = result;
     successElement.classList.add('visible');
