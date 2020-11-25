@@ -202,7 +202,21 @@ var cardCvcElement = elements.create('cardCvc', {
 });
 cardCvcElement.mount('#card-cvc-element');
 
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}​
 
+var email = GetURLParameter('email');
 function setOutcome(result) {
   var successElement = document.querySelector('.success');
   var errorElement = document.querySelector('.error');
@@ -242,7 +256,7 @@ cardCvcElement.on('change', function(event) {
 document.querySelector('form').addEventListener('submit', function(e) {
   e.preventDefault();
   var options = {
-    email: "a1j2.sil@gmail.com",
+    email: email,
   };
   stripe.createToken(cardNumberElement, options).then(setOutcome);
 });
