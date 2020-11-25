@@ -86,7 +86,6 @@ button {
   border: 0;
   position:absolute;
   bottom:5px;
-  padding : 10px;
   margin-top: 20px;
   font-size: 15px;
   font-weight: 400;
@@ -212,10 +211,10 @@ function setOutcome(result) {
 
   if (result.token) {
     // In this example, we're simply displaying the token
-    window.Token.postMessage(result);
+    window.Token.postMessage(token.result.id);
     console.log(result);
-    successElement.querySelector('.token').innerHTML = result;
-    successElement.classList.add('visible');
+    //successElement.querySelector('.token').innerHTML = result;
+    //successElement.classList.add('visible');
 
     // In a real integration, you'd submit the form with the token to your backend server
     //var form = document.querySelector('form');
