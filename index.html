@@ -145,11 +145,11 @@ button:active {
     <input type="hidden" name="token" />
     <div class="group">
       <label>
-        <span>Card number</span>
+        <span><script>json[lang]['card_number']</script></span>
         <div id="card-number-element" class="field"></div>
       </label>
       <label>
-        <span>Expiry date</span>
+        <span><script>json[lang]['expiry_date']</script></span>
         <div id="card-expiry-element" class="field"></div>
       </label>
       <label>
@@ -164,7 +164,7 @@ button:active {
         <span class="token"></span>
       </div>
     </div>
-    <button id="payment" type="submit">Submit</button>
+    <button id="payment" type="submit"><script>json[lang]['submit']</script></button>
     
     <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
   </form>
@@ -174,6 +174,9 @@ var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeW
 var elements = stripe.elements();
 var json = {
   "en" : {
+    "submit": "Pay Now",
+    "card_number" : "Card Number",
+    "expiry_date" : "Expiry Date",
     "incorrect_number": "The card number is incorrect.",
     "incomplete_number" : "The card number is incomplete",
     "invalid_expiry_year_past" : "The expiry date is of past",
@@ -193,6 +196,9 @@ var json = {
         "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error."
   },
   "ja" : {
+    "submit": "注文を確定する",
+    "card_number" : "カード番号",
+    "expiry_date" : "有効期限",
     "incorrect_number": "The card number is incorrect.",
     "invalid_expiry_year_past" : "The expiry date is of past",
     "incomplete_number" : "The card number input is not complete",
