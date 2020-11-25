@@ -140,6 +140,7 @@ button:active {
 }
 
 </style>
+<body>
 <script>
   var json = {
   "en" : {
@@ -206,7 +207,7 @@ if(lang==''){
   lang = 'ja';
 }
 </script>
-<body>
+
   <form action="//httpbin.org/post" method="POST">
     <input type="hidden" name="token" />
     <div class="group">
@@ -219,7 +220,7 @@ if(lang==''){
         <div id="card-expiry-element" class="field"></div>
       </label>
       <label>
-        <span>CVC</span>
+        <span>CVV/CVC</span>
         <div id="card-cvc-element" class="field"></div>
       </label>
       
