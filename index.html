@@ -140,39 +140,8 @@ button:active {
 }
 
 </style>
-<body>
-  <form action="//httpbin.org/post" method="POST">
-    <input type="hidden" name="token" />
-    <div class="group">
-      <label>
-        <span><script>json[lang]['card_number']</script></span>
-        <div id="card-number-element" class="field"></div>
-      </label>
-      <label>
-        <span><script>json[lang]['expiry_date']</script></span>
-        <div id="card-expiry-element" class="field"></div>
-      </label>
-      <label>
-        <span>CVC</span>
-        <div id="card-cvc-element" class="field"></div>
-      </label>
-      
-    </div>
-    <div class="outcome">
-      <div class="error"></div>
-      <div class="success">
-        <span class="token"></span>
-      </div>
-    </div>
-    <button id="payment" type="submit"><script>json[lang]['submit']</script></button>
-    
-    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
-  </form>
-</body>
 <script>
-var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
-var elements = stripe.elements();
-var json = {
+  var json = {
   "en" : {
     "submit": "Pay Now",
     "card_number" : "Card Number",
@@ -236,6 +205,41 @@ var lang = GetURLParameter('lang');
 if(lang==''){
   lang = 'ja';
 }
+</script>
+<body>
+  <form action="//httpbin.org/post" method="POST">
+    <input type="hidden" name="token" />
+    <div class="group">
+      <label>
+        <span><script>json[lang]['card_number']</script></span>
+        <div id="card-number-element" class="field"></div>
+      </label>
+      <label>
+        <span><script>json[lang]['expiry_date']</script></span>
+        <div id="card-expiry-element" class="field"></div>
+      </label>
+      <label>
+        <span>CVC</span>
+        <div id="card-cvc-element" class="field"></div>
+      </label>
+      
+    </div>
+    <div class="outcome">
+      <div class="error"></div>
+      <div class="success">
+        <span class="token"></span>
+      </div>
+    </div>
+    <button id="payment" type="submit"><script>json[lang]['submit']</script></button>
+    
+    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
+  </form>
+</body>
+<script>
+var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
+var elements = stripe.elements();
+
+
 var style = {
   base: {
     iconColor: '#666EE8',
