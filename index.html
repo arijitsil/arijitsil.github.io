@@ -172,6 +172,38 @@ button:active {
 <script>
 var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
 var elements = stripe.elements();
+var json = {
+  "en" : {
+    "incorrect_number": "The card number is incorrect.",
+    "invalid_number": "The card number is not a valid credit card number.",
+    "invalid_expiry_month": "Your card's expiration month is invalid",
+    "invalid_expiry_year": "Your card's expiration year is invalid",
+    "invalid_cvc": "The card's security code is invalid.",
+    "expired_card": "The card has expired.",
+    "incorrect_cvc": "Your card's security code is invalid.",
+    "incorrect_zip": "The card's zip code failed validation.",
+    "card_declined": "The card was declined.",
+    "missing": "There is no card on a customer that is being charged.",
+    "processing_error": "An error occurred while processing the card.",
+    "rate_limit":
+        "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error."
+  },
+  "ja" : {
+    "incorrect_number": "The card number is incorrect.",
+    "invalid_number": "The card number is not a valid credit card number.",
+    "invalid_expiry_month": "有効期限の「月」に誤りがございます。",
+    "invalid_expiry_year": "有効期限の「年」に誤りがございます。",
+    "invalid_cvc": "CVV（セキュリティーコード）が誤っております。",
+    "expired_card": "The card has expired.",
+    "incorrect_cvc": "The card's security code is incorrect.",
+    "incorrect_zip": "The card's zip code failed validation.",
+    "card_declined": "The card was declined.",
+    "missing": "There is no card on a customer that is being charged.",
+    "processing_error": "An error occurred while processing the card.",
+    "rate_limit":
+        "An error occurred due to requests hitting the API too quickly. Please let us know if you're consistently running into this error."
+  }
+}
 function GetURLParameter(sParam)
 {
     var sPageURL = window.location.search.substring(1);
@@ -236,7 +268,7 @@ function setOutcome(result) {
     //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
     //form.submit();
   } else if (result.error) {
-    errorElement.textContent = result.error.message;
+    errorElement.textContent = result.error.code;
     errorElement.classList.add('visible');
   }
 }
