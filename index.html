@@ -208,7 +208,7 @@ function setOutcome(result) {
 
   if (result.token) {
     // In this example, we're simply displaying the token
-    window.postMessage(result);
+    window.Token.postMessage(result);
     console.log(result);
     successElement.querySelector('.token').innerHTML = result;
     successElement.classList.add('visible');
