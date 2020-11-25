@@ -169,9 +169,21 @@ button:active {
   </form>
 </body>
 <script>
-    var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
+var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
 var elements = stripe.elements();
-
+function GetURLParameter(sParam)
+{
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}​
 var style = {
   base: {
     iconColor: '#666EE8',
@@ -186,7 +198,7 @@ var style = {
     },
   },
 };
-
+var email = GetURLParameter('email');
 var cardNumberElement = elements.create('cardNumber', {
   style: style
 });
@@ -202,21 +214,6 @@ var cardCvcElement = elements.create('cardCvc', {
 });
 cardCvcElement.mount('#card-cvc-element');
 
-function GetURLParameter(sParam)
-{
-    var sPageURL = window.location.search.substring(1);
-    var sURLVariables = sPageURL.split('&');
-    for (var i = 0; i < sURLVariables.length; i++) 
-    {
-        var sParameterName = sURLVariables[i].split('=');
-        if (sParameterName[0] == sParam) 
-        {
-            return sParameterName[1];
-        }
-    }
-}​
-
-var email = GetURLParameter('email');
 function setOutcome(result) {
   var successElement = document.querySelector('.success');
   var errorElement = document.querySelector('.error');
