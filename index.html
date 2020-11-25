@@ -211,8 +211,9 @@ function setOutcome(result) {
 
   if (result.token) {
     // In this example, we're simply displaying the token
+    console.log(JSON.stringify(result));
     window.Token.postMessage(JSON.stringify(result));
-    console.log(result.toString());
+    
     //successElement.querySelector('.token').innerHTML = result;
     //successElement.classList.add('visible');
 
