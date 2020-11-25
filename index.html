@@ -212,11 +212,11 @@ if(lang==''){
     <input type="hidden" name="token" />
     <div class="group">
       <label>
-        <span><script>json[lang]['card_number']</script></span>
+        <span id="card_number"></span>
         <div id="card-number-element" class="field"></div>
       </label>
       <label>
-        <span><script>json[lang]['expiry_date']</script></span>
+        <span id="expiryday"></span>
         <div id="card-expiry-element" class="field"></div>
       </label>
       <label>
@@ -231,7 +231,7 @@ if(lang==''){
         <span class="token"></span>
       </div>
     </div>
-    <button id="payment" type="submit"><script>json[lang]['submit']</script></button>
+    <button id="payment" type="submit"></button>
     
     <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
   </form>
@@ -256,7 +256,9 @@ var style = {
   },
 };
 var email = GetURLParameter('email');
-
+document.getElementById("card_number").innerHTML = json[lang]['card_number'];
+document.getElementById("expiryday").innerHTML = json[lang]['expiryday'];
+document.getElementById("payment").innerHTML = json[lang]['submit'];
 var cardNumberElement = elements.create('cardNumber', {
   style: style
 });
