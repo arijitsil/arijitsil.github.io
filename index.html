@@ -216,8 +216,12 @@ function GetURLParameter(sParam)
             return sParameterName[1];
         }
     }
+    return '';
 }
 var lang = GetURLParameter('lang');
+if(lang==''){
+  lang = 'ja';
+}
 var style = {
   base: {
     iconColor: '#666EE8',
@@ -268,7 +272,7 @@ function setOutcome(result) {
     //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
     //form.submit();
   } else if (result.error) {
-    errorElement.textContent = result.error.code;
+    errorElement.textContent = json[lang][result.error.code];
     errorElement.classList.add('visible');
   }
 }
