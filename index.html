@@ -80,7 +80,7 @@ label > span {
 button {
   float: left;
   display: block;
-  background: #666EE8;
+  background: #2196f3;
   color: white;
   box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.10), 0 3px 6px 0 rgba(0, 0, 0, 0.08);
   border: 0;
@@ -91,7 +91,7 @@ button {
   font-weight: 400;
   width: 100%;
   left:0px;
-  height: 40px;
+  padding : 10px;
   line-height: 38px;
   outline: none;
 }
@@ -140,35 +140,7 @@ button:active {
 }
 
 </style>
-<body>
-  <form action="//httpbin.org/post" method="POST">
-    <input type="hidden" name="token" />
-    <div class="group">
-      <label>
-        <span>Card number</span>
-        <div id="card-number-element" class="field"></div>
-      </label>
-      <label>
-        <span>Expiry date</span>
-        <div id="card-expiry-element" class="field"></div>
-      </label>
-      <label>
-        <span>CVC</span>
-        <div id="card-cvc-element" class="field"></div>
-      </label>
-      
-    </div>
-    <div class="outcome">
-      <div class="error"></div>
-      <div class="success">
-        <span class="token"></span>
-      </div>
-    </div>
-    <button type="submit">Submit</button>
-    
-    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
-  </form>
-</body>
+
 <script>
 var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
 var elements = stripe.elements();
@@ -185,7 +157,7 @@ function GetURLParameter(sParam)
         }
     }
 }
-
+var lang = GetURLParameter('lang');
 var style = {
   base: {
     iconColor: '#666EE8',
@@ -201,6 +173,7 @@ var style = {
   },
 };
 var email = GetURLParameter('email');
+
 var cardNumberElement = elements.create('cardNumber', {
   style: style
 });
@@ -254,6 +227,8 @@ cardCvcElement.on('change', function(event) {
 
 document.querySelector('form').addEventListener('submit', function(e) {
   e.preventDefault();
+  var paymentButton = document.querySelector("payment");
+  paymentButton.disabled = true;
   var options = {
     email: email,
   };
@@ -261,3 +236,32 @@ document.querySelector('form').addEventListener('submit', function(e) {
 });
 
 </script>
+<body>
+  <form action="//httpbin.org/post" method="POST">
+    <input type="hidden" name="token" />
+    <div class="group">
+      <label>
+        <span>Card number</span>
+        <div id="card-number-element" class="field"></div>
+      </label>
+      <label>
+        <span>Expiry date</span>
+        <div id="card-expiry-element" class="field"></div>
+      </label>
+      <label>
+        <span>CVC</span>
+        <div id="card-cvc-element" class="field"></div>
+      </label>
+      
+    </div>
+    <div class="outcome">
+      <div class="error"></div>
+      <div class="success">
+        <span class="token"></span>
+      </div>
+    </div>
+    <button id="payment" type="submit">Submit</button>
+    
+    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
+  </form>
+</body>
