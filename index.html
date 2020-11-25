@@ -272,6 +272,7 @@ function setOutcome(result) {
     //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
     //form.submit();
   } else if (result.error) {
+    console.log(result.error.code)
     errorElement.textContent = json[lang][result.error.code];
     errorElement.classList.add('visible');
   }
