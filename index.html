@@ -255,8 +255,7 @@ cardCvcElement.on('change', function(event) {
 
 document.querySelector('form').addEventListener('submit', function(e) {
   e.preventDefault();
-  var paymentButton = document.querySelector("payment");
-  paymentButton.disabled = true;
+  document.getElementById("payment").disabled = true;
   var options = {
     email: email,
   };
