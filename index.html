@@ -140,7 +140,35 @@ button:active {
 }
 
 </style>
-
+<body>
+  <form action="//httpbin.org/post" method="POST">
+    <input type="hidden" name="token" />
+    <div class="group">
+      <label>
+        <span>Card number</span>
+        <div id="card-number-element" class="field"></div>
+      </label>
+      <label>
+        <span>Expiry date</span>
+        <div id="card-expiry-element" class="field"></div>
+      </label>
+      <label>
+        <span>CVC</span>
+        <div id="card-cvc-element" class="field"></div>
+      </label>
+      
+    </div>
+    <div class="outcome">
+      <div class="error"></div>
+      <div class="success">
+        <span class="token"></span>
+      </div>
+    </div>
+    <button id="payment" type="submit">Submit</button>
+    
+    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
+  </form>
+</body>
 <script>
 var stripe = Stripe('pk_test_51GtsUQDFruPsLR1hx8Ev2jNJRWHmJg6fsVa1XyaLv3aflfogeWfMu5xy8rKNkF6xTDHFCPVyrWeA9RAzy9PUW22t002dvwJrE2');
 var elements = stripe.elements();
@@ -236,32 +264,3 @@ document.querySelector('form').addEventListener('submit', function(e) {
 });
 
 </script>
-<body>
-  <form action="//httpbin.org/post" method="POST">
-    <input type="hidden" name="token" />
-    <div class="group">
-      <label>
-        <span>Card number</span>
-        <div id="card-number-element" class="field"></div>
-      </label>
-      <label>
-        <span>Expiry date</span>
-        <div id="card-expiry-element" class="field"></div>
-      </label>
-      <label>
-        <span>CVC</span>
-        <div id="card-cvc-element" class="field"></div>
-      </label>
-      
-    </div>
-    <div class="outcome">
-      <div class="error"></div>
-      <div class="success">
-        <span class="token"></span>
-      </div>
-    </div>
-    <button id="payment" type="submit">Submit</button>
-    
-    <!-- <div class="text-center" style="margin-top: 30px" }}><img src='./assets/payments.jpeg' class="cards-img" /></div> -->
-  </form>
-</body>
