@@ -323,18 +323,6 @@
     }
   }
 
-  document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    document.getElementById("payment").disabled = true;
-    var options = {
-      email: email,
-
-    };
-  });
-   
-
-  
-
     cardNumberElement.on("change", function (event) {
       setOutcome(event);
     });
@@ -349,6 +337,7 @@
 
     document.querySelector("form").addEventListener("submit", function (e) {
       e.preventDefault();
+      document.getElementById("payment").disabled = true;
       var options = {
         email: email,
       };
