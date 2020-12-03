@@ -195,7 +195,7 @@
         card_number: "カード番号",
         expiry_date: "有効期限",
         incorrect_number: "正しいカード番号をご入力ください。",
-        invalid_expiry_year_past: "T正しい有効期限をご入力ください。",
+        invalid_expiry_year_past: "正しい有効期限をご入力ください。",
         incomplete_number: "正しいカード番号をご入力ください。",
         incomplete_cvc: "正しいCVCをご入力ください。",
         incomplete_expiry: "正しい有効期限をご入力ください。",
@@ -298,6 +298,7 @@
   cardCvcElement.mount('#card-cvc-element');
 
   function setOutcome(result) {
+    document.getElementById("payment").disabled = false;
     var successElement = document.querySelector('.success');
     var errorElement = document.querySelector('.error');
     successElement.classList.remove('visible');
